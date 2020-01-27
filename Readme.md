@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Oleg Gorbunov](https://up.htmlacademy.ru/javascript/19/user/1079599).
-* Наставник: `Неизвестно`.
+* Наставник: Никита Сигов.
 
 ---
 
