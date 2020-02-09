@@ -70,6 +70,11 @@ var pictureTemplate = document.querySelector('#picture')
 
 var commentsTemplate = document.querySelector('.social__comment').cloneNode(true);
 
+//Утилиты
+var intervalPercentageCalculation = function (percent, min, max) {
+  return (percent / 100) * (max - min) + min;
+};
+
 var getАrbitraryIntFromInterval = function (min, max) {
   return Math.floor(Math.random() * (max + 1 - min) + min);
 };
@@ -90,6 +95,13 @@ var buildItemsArrayWithGenerator = function (length, itemGenerator) {
   return itemsArray;
 };
 
+var removeAllChild = function (element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+
+//фотографии
 var getАrbitraryPhoto = function (photoCounter) {
   return {
     url: 'photos/' + (photoCounter + 1) + '.jpg',
@@ -107,6 +119,20 @@ var getPictureElement = function (picture) {
   return pictureElement;
 };
 
+var updateLargePictureData = function (data) {
+  document.querySelector('.big-picture__img img').src = data.url;
+  document.querySelector('.likes-count').textContent = data.likes;
+  document.querySelector('.comments-count').textContent = data.comments.length;
+  removeAllChild(document.querySelector('.social__comments'));
+  document.querySelector('.social__comments').appendChild(buildCommentsFragment(data.comments));
+  document.querySelector('.social__caption').textContent = data.description;
+};
+
+//Комментарии
+var getRandomComment = function () {
+  return (getАrbitraryIntFromInterval(1, 2) === 1) ? getАrbitraryFromArray(MOCK_COMMENTS) : getАrbitraryFromArray(MOCK_COMMENTS) + '' + getАrbitraryFromArray(MOCK_COMMENTS);
+};
+
 var getCommentElement = function (comment) {
   var commentElement = commentsTemplate.cloneNode(true);
   commentElement.querySelector('.social__picture').src = 'img/avatar-' + getАrbitraryIntFromInterval(MIN_COMMENTS_AVATAR_COUNT, MAX_COMMENTS_AVATAR_COUNT) + '.svg';
@@ -121,22 +147,6 @@ var buildCommentsFragment = function (comments) {
   }
   return commentElementList;
 };
-
-var removeAllChild = function (element) {
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-};
-
-var updateLargePictureData = function (data) {
-  document.querySelector('.big-picture__img img').src = data.url;
-  document.querySelector('.likes-count').textContent = data.likes;
-  document.querySelector('.comments-count').textContent = data.comments.length;
-  removeAllChild(document.querySelector('.social__comments'));
-  document.querySelector('.social__comments').appendChild(buildCommentsFragment(data.comments));
-  document.querySelector('.social__caption').textContent = data.description;
-};
-
 
 // Создание MOCK данных
 var photos = buildItemsArrayWithGenerator(NUMBER_OF_PHOTOS, getАrbitraryPhoto);
