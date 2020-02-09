@@ -48,14 +48,14 @@ var EFFECTS_PREVIEW_SETTINGS = {
     dimension: '%',
     className: 'effects__preview--marvin'
   },
-   'phobos': {
+  'phobos': {
     name: 'blur',
     min: 0,
     max: 3,
     dimension: 'px',
     className: 'effects__preview--phobos'
   },
-   'heat': {
+  'heat': {
     name: 'brightness',
     min: 1,
     max: 3,
@@ -70,7 +70,7 @@ var pictureTemplate = document.querySelector('#picture')
 
 var commentsTemplate = document.querySelector('.social__comment').cloneNode(true);
 
-//Утилиты
+// Утилиты
 var intervalPercentageCalculation = function (percent, min, max) {
   return (percent / 100) * (max - min) + min;
 };
@@ -101,7 +101,7 @@ var removeAllChild = function (element) {
   }
 };
 
-//фотографии
+// Фотографии
 var getАrbitraryPhoto = function (photoCounter) {
   return {
     url: 'photos/' + (photoCounter + 1) + '.jpg',
@@ -116,6 +116,11 @@ var getPictureElement = function (picture) {
   pictureElement.querySelector('.picture__img').src = picture.url;
   pictureElement.querySelector('.picture__likes').textContent = picture.likes;
   pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
+  pictureElement.addEventListener('click', function () {
+    updateLargePictureData(picture);
+    document.querySelector('.big-picture').classList.remove('hidden');
+    document.addEventListener('keydown', onLargePictureOverlayEscButtonPress);
+  });
   return pictureElement;
 };
 
@@ -128,7 +133,7 @@ var updateLargePictureData = function (data) {
   document.querySelector('.social__caption').textContent = data.description;
 };
 
-//Комментарии
+// Комментарии
 var getRandomComment = function () {
   return (getАrbitraryIntFromInterval(1, 2) === 1) ? getАrbitraryFromArray(MOCK_COMMENTS) : getАrbitraryFromArray(MOCK_COMMENTS) + '' + getАrbitraryFromArray(MOCK_COMMENTS);
 };
@@ -146,6 +151,18 @@ var buildCommentsFragment = function (comments) {
     commentElementList.appendChild(getCommentElement(comments[i]));
   }
   return commentElementList;
+};
+
+// Действия на странице
+var closeOverlayElement = function (className) {
+  document.querySelector(className).classList.add('hidden');
+};
+
+var onLargePictureOverlayEscButtonPress = function (evt) {
+  if (evt.keyCode === ESCAPE_KEYCODE) {
+    closeOverlayElement('.big-picture');
+    document.removeEventListener('keydown', onLargePictureOverlayEscButtonPress);
+  }
 };
 
 // Создание MOCK данных
@@ -166,3 +183,9 @@ document.querySelector('.big-picture').classList.remove('hidden');
 // Скрываю блоки счётчика комментариев и загрузки новых комментариев
 document.querySelector('.social__comment-count').classList.add('visally-hidden');
 document.querySelector('.comments-loader').classList.add('visally-hidden');
+
+// События
+document.querySelector('.big-picture__cancel').addEventListener('click', function () {
+  closeOverlayElement('.big-picture');
+  document.removeEventListener('keydown', onLargePictureOverlayEscButtonPress);
+});
