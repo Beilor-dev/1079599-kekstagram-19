@@ -1,6 +1,5 @@
 'use strict';
 
-
 var MOCK_COMMENTS = [
   'Все отлично!',
   'В целом все не плохо.Но не все.',
@@ -26,6 +25,44 @@ var MIN_COMMENTS_COUNT = 0;
 var MAX_COMMENTS_COUNT = 25;
 var MIN_COMMENTS_AVATAR_COUNT = 1;
 var MAX_COMMENTS_AVATAR_COUNT = 6;
+var ESCAPE_KEYCODE = 27;
+var EFFECTS_PREVIEW_SETTINGS = {
+  'chrome': {
+    name: 'grayscale',
+    min: 0,
+    max: 1,
+    dimension: '',
+    className: 'effects__preview--chrome'
+  },
+  'sepia': {
+    name: 'sepia',
+    min: 0,
+    max: 1,
+    dimension: '',
+    className: 'effects__preview--sepia'
+  },
+  'marvin': {
+    name: 'invert',
+    min: 0,
+    max: 100,
+    dimension: '%',
+    className: 'effects__preview--marvin'
+  },
+   'phobos': {
+    name: 'blur',
+    min: 0,
+    max: 3,
+    dimension: 'px',
+    className: 'effects__preview--phobos'
+  },
+   'heat': {
+    name: 'brightness',
+    min: 1,
+    max: 3,
+    dimension: '',
+    className: 'effects__preview--heat'
+  }
+};
 
 var pictureTemplate = document.querySelector('#picture')
   .content
