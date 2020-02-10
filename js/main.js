@@ -173,6 +173,39 @@ var onImgUploadOverlayEscButtonPress =  function (evt) {
   }
 };
 
+var getCurrentFilterStyle = function (level, nameEffect) {
+  return (nameEffect === 'none') ? 'none' : 
+  EFFECTS_PREVIEW_SETTINGS[nameEffect].name + '(' + 
+  intervalPercentageCalculation(level, EFFECTS_PREVIEW_SETTINGS[nameEffect].min, EFFECTS_PREVIEW_SETTINGS[nameEffect].max) +
+  EFFECTS_PREVIEW_SETTINGS[nameEffect].dimension + ')';
+};
+
+var setupFilterEffectClass = function (nameEffect) {
+  if (nameEffect === 'none') {
+    document.querySelector('.img-upload__effect-level').classList.add('hidden');
+    var onFilterFromNoneChange = function () {
+      document.querySelector('.img-upload__effect-level').classList.remove('hidden');
+      document.querySelector('.effects__list').removeEventListener('change', onFilterFromNoneChange);
+    };
+    document.querySelector('effects__list').addEventListener('change', onFilterFromNoneChange);
+  } else {
+    document.querySelector('.img-upload__preview').classList.add(EFFECTS_PREVIEW_SETTINGS[nameEffect].className);
+    var onEffectFilterChange = function () {
+      document.querySelector('.img-upload__preview').classList.remove(EFFECTS_PREVIEW_SETTINGS[nameEffect].className);
+      document.querySelector('.effects__list').removeEventListener('change', onEffectFilterChange);
+    };
+    document.querySelector('.effects__list').addEventListener('change', onEffectFilterChange);
+  }
+};
+
+var onFilterEffectChnage =function () {
+  var nameEffect = document.querySelector('.effects__radio:checked').value;
+  document.querySelector('.effect-level__value').value = 100;
+  setupFilterEffectClass(nameEffect)
+  setEffectLevelLine(100);
+  setEffectLevelBigPicture(100, nameEffect);
+};
+
 // Создание MOCK данных
 var photos = buildItemsArrayWithGenerator(NUMBER_OF_PHOTOS, getАrbitraryPhoto);
 
@@ -202,3 +235,5 @@ document.querySelector('#upload-file').addEventListener('change', function() {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
 });
+
+document.querySelector('.effects__list').addEventListener('change', onFilterEffectChnage);
