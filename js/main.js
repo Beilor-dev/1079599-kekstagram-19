@@ -165,6 +165,14 @@ var onLargePictureOverlayEscButtonPress = function (evt) {
   }
 };
 
+var onImgUploadOverlayEscButtonPress =  function (evt) {
+  if (evt.keyCode === ESCAPE_KEYCODE) {
+    closeOverlayElement('.img-upload__overlay');
+    document.querySelector('#upload-file').value = '';
+    document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress)
+  }
+};
+
 // Создание MOCK данных
 var photos = buildItemsArrayWithGenerator(NUMBER_OF_PHOTOS, getАrbitraryPhoto);
 
@@ -175,11 +183,6 @@ for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
 }
 document.querySelector('.pictures').appendChild(photoElementsList);
 
-// Обновляю данные и отображаю блок с первым изображением
-
-updateLargePictureData(photos[0]);
-document.querySelector('.big-picture').classList.remove('hidden');
-
 // Скрываю блоки счётчика комментариев и загрузки новых комментариев
 document.querySelector('.social__comment-count').classList.add('visally-hidden');
 document.querySelector('.comments-loader').classList.add('visally-hidden');
@@ -188,4 +191,14 @@ document.querySelector('.comments-loader').classList.add('visally-hidden');
 document.querySelector('.big-picture__cancel').addEventListener('click', function () {
   closeOverlayElement('.big-picture');
   document.removeEventListener('keydown', onLargePictureOverlayEscButtonPress);
+});
+
+document.querySelector('.img-upload__cancel').addEventListener('click', function() {
+  closeOverlayElement('.img-upload__overlay');
+  document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
+});
+
+document.querySelector('#upload-file').addEventListener('change', function() {
+  document.querySelector('.img-upload__overlay').classList.remove('hidden');
+  document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
 });
