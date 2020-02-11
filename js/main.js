@@ -83,10 +83,6 @@ var getАrbitraryFromArray = function (array) {
   return array[getАrbitraryIntFromInterval(0, array.length - 1)];
 };
 
-var getАrbitraryComment = function () {
-  return (getАrbitraryIntFromInterval(1, 2) === 1) ? getАrbitraryFromArray(MOCK_COMMENTS) : getАrbitraryFromArray(MOCK_COMMENTS) + '' + getАrbitraryFromArray(MOCK_COMMENTS);
-};
-
 var buildItemsArrayWithGenerator = function (length, itemGenerator) {
   var itemsArray = [];
   for (var i = 0; i < length; i++) {
@@ -134,7 +130,7 @@ var updateLargePictureData = function (data) {
 };
 
 // Комментарии
-var getRandomComment = function () {
+var getАrbitraryComment = function () {
   return (getАrbitraryIntFromInterval(1, 2) === 1) ? getАrbitraryFromArray(MOCK_COMMENTS) : getАrbitraryFromArray(MOCK_COMMENTS) + '' + getАrbitraryFromArray(MOCK_COMMENTS);
 };
 
@@ -214,6 +210,35 @@ var onFilterEffectChnage = function () {
   setupEffectLevelLine(100);
   setupEffectLevelLargePicture(100, nameEffect);
 };
+
+// Перетаскивание
+document.querySelector('.effect-level__pin').addEventListener('mousedown', function () {
+  var width = document.querySelector('.effect-level__line').offsetWidth;
+  var unitX = document.querySelector('.effect-level__line').getBoundingClientRect().x;
+  var nameEffect = document.querySelector('.effects__radio:checked').value;
+  var changeEffectLevel = function (evtX) {
+    var position = evtX - unitX;
+    if (evtX < unitX) {
+      position = unitX;
+    } else if (evtX > (width + unitX)) {
+      position = width;
+    }
+    var level = position / width * 100;
+    setupEffectLevelLine(level);
+    setupEffectLevelLargePicture(level, nameEffect);
+  };
+
+  var onEffectLevelTagMove = function (evt) {
+    changeEffectLevel(evt.clientX);
+  };
+
+  var onEffectLevelTagMouseUp = function () {
+    document.removeEventListener('mousemove', onEffectLevelTagMove);
+    document.removeEventListener('mouseup', onEffectLevelTagMouseUp);
+  };
+  document.addEventListener('mousemove', onEffectLevelTagMove);
+  document.addEventListener('mouseup', onEffectLevelTagMouseUp);
+});
 
 // Создание MOCK данных
 var photos = buildItemsArrayWithGenerator(NUMBER_OF_PHOTOS, getАrbitraryPhoto);
