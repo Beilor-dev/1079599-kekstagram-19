@@ -64,10 +64,10 @@ var EFFECTS_PREVIEW_SETTINGS = {
   }
 };
 var FILTER_EFFECT_DEFAULT = 100;
-var SCALE_EFFECT_STEP = 25;
+// var SCALE_EFFECT_STEP = 25;
 var SCALE_EFFECT_DEFAULT = 100;
-var SCALE_EFFECT_MIN = 25;
-var SCALE_EFFECT_MAX = 100;
+// var SCALE_EFFECT_MIN = 25;
+// var SCALE_EFFECT_MAX = 100;
 
 var pictureTemplate = document.querySelector('#picture')
   .content
@@ -278,8 +278,50 @@ document.querySelector('.img-upload__cancel').addEventListener('click', function
 document.querySelector('#upload-file').addEventListener('change', function () {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   onFilterEffectChange();
-  setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
+  // setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
   document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
 });
 
 document.querySelector('.effects__list').addEventListener('change', onFilterEffectChange);
+
+// Хэш-теги:
+var onHashTagCheck = function (evt) {
+  var target = evt.target;
+  var hashTags = target.value.split(' ');
+  target.setCustomValidity('');
+  if (hashTags.length > 5) {
+    target.setCustomValidity('Нельзя указывать больше пяти хэш-тегов;');
+  } else {
+    for (var i = 0; i < hashTags.length; i++) {
+      if (hashTags[i][0] !== '#') {
+        target.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка);');
+        break;
+      } else if (hashTags[i].length < 2) {
+        target.setCustomValidity('Хэш-тег не может состоять только из одной решётки;');
+        break;
+      } else if (hashTags[i].length > 20) {
+        target.setCustomValidity('Максимальная длина хэш-тега 20 символов, включая решётку;');
+        break;
+      } else {
+        for (var j = i + 1; j < hashTags.length; j++) {
+          if (hashTags[i].toLowerCase() === hashTags[j].toLowerCase()) {
+            target.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды, теги нечувствительны к регистру;');
+            break;
+          }
+        }
+      }
+    }
+  }
+};
+document.querySelector('.text__hashtags').addEventListener('input', onHashTagCheck);
+
+var onImgUploadOverlayTxtInputFocus = function () {
+  document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
+};
+var onImgUploadOverlayTxtInputBlot = function () {
+  document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
+};
+document.querySelector('.text__hashtags').addEventListener('focus', onImgUploadOverlayTxtInputFocus);
+document.querySelector('.text__hashtags').addEventListener('blur', onImgUploadOverlayTxtInputBlot);
+document.querySelector('.text__description').addEventListener('focus', onImgUploadOverlayTxtInputFocus);
+document.querySelector('.text__description').addEventListener('blur', onImgUploadOverlayTxtInputBlot);
