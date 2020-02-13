@@ -63,6 +63,11 @@ var EFFECTS_PREVIEW_SETTINGS = {
     className: 'effects__preview--heat'
   }
 };
+var FILTER_EFFECT_DEFAULT = 100;
+var SCALE_EFFECT_STEP = 25;
+var SCALE_EFFECT_DEFAULT = 100;
+var SCALE_EFFECT_MIN = 25;
+var SCALE_EFFECT_MAX = 100;
 
 var pictureTemplate = document.querySelector('#picture')
   .content
@@ -203,12 +208,17 @@ var setupEffectLevelLargePicture = function (level, nameEffect) {
   document.querySelector('.img-upload__preview').style.filter = getCurrentFilterStyle(level, nameEffect);
 };
 
-var onFilterEffectChnage = function () {
+var onFilterEffectChange = function () {
   var nameEffect = document.querySelector('.effects__radio:checked').value;
-  document.querySelector('.effect-level__value').value = 100;
+  document.querySelector('.effect-level__value').value = FILTER_EFFECT_DEFAULT;
   setupFilterEffectClass(nameEffect);
-  setupEffectLevelLine(100);
-  setupEffectLevelLargePicture(100, nameEffect);
+  setupEffectLevelLine(FILTER_EFFECT_DEFAULT);
+  setupEffectLevelLargePicture(FILTER_EFFECT_DEFAULT, nameEffect);
+};
+
+var setupScaleEffectLevel = function (level) {
+  document.querySelector('.scale__control--value').value = level + '%';
+  document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
 };
 
 // Перетаскивание
@@ -267,7 +277,9 @@ document.querySelector('.img-upload__cancel').addEventListener('click', function
 
 document.querySelector('#upload-file').addEventListener('change', function () {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
+  onFilterEffectChange();
+  setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
   document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
 });
 
-document.querySelector('.effects__list').addEventListener('change', onFilterEffectChnage);
+document.querySelector('.effects__list').addEventListener('change', onFilterEffectChange);
