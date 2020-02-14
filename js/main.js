@@ -65,7 +65,7 @@ var EFFECTS_PREVIEW_SETTINGS = {
 };
 var FILTER_EFFECT_DEFAULT = 100;
 // var SCALE_EFFECT_STEP = 25;
-// var SCALE_EFFECT_DEFAULT = 100;
+var SCALE_EFFECT_DEFAULT = 100;
 // var SCALE_EFFECT_MIN = 25;
 // var SCALE_EFFECT_MAX = 100;
 
@@ -278,7 +278,7 @@ document.querySelector('.img-upload__cancel').addEventListener('click', function
 document.querySelector('#upload-file').addEventListener('change', function () {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   onFilterEffectChange();
-  // setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
+  setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
   document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
 });
 
@@ -303,7 +303,7 @@ var onHashTagCheck = function (evt) {
         target.setCustomValidity('Максимальная длина хэш-тега 20 символов, включая решётку;');
         break;
       } else {
-        for (var a = i + 1; a < hashTags.length; a++) {
+        for (var j = a + 1; j < hashTags.length; j++) {
           if (hashTags[a].toLowerCase() === hashTags[j].toLowerCase()) {
             target.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды, теги нечувствительны к регистру;');
             break;
