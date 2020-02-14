@@ -65,7 +65,7 @@ var EFFECTS_PREVIEW_SETTINGS = {
 };
 var FILTER_EFFECT_DEFAULT = 100;
 // var SCALE_EFFECT_STEP = 25;
-var SCALE_EFFECT_DEFAULT = 100;
+// var SCALE_EFFECT_DEFAULT = 100;
 // var SCALE_EFFECT_MIN = 25;
 // var SCALE_EFFECT_MAX = 100;
 
@@ -216,10 +216,10 @@ var onFilterEffectChange = function () {
   setupEffectLevelLargePicture(FILTER_EFFECT_DEFAULT, nameEffect);
 };
 
-var setupScaleEffectLevel = function (level) {
-  document.querySelector('.scale__control--value').value = level + '%';
-  document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
-};
+// var setupScaleEffectLevel = function (level) {
+//   document.querySelector('.scale__control--value').value = level + '%';
+//   document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
+// };
 
 // Перетаскивание
 document.querySelector('.effect-level__pin').addEventListener('mousedown', function () {
