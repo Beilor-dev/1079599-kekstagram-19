@@ -216,10 +216,10 @@ var onFilterEffectChange = function () {
   setupEffectLevelLargePicture(FILTER_EFFECT_DEFAULT, nameEffect);
 };
 
-// var setupScaleEffectLevel = function (level) {
-//   document.querySelector('.scale__control--value').value = level + '%';
-//   document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
-// };
+var setupScaleEffectLevel = function (level) {
+  document.querySelector('.scale__control--value').value = level + '%';
+  document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
+};
 
 // Перетаскивание
 document.querySelector('.effect-level__pin').addEventListener('mousedown', function () {
@@ -292,19 +292,19 @@ var onHashTagCheck = function (evt) {
   if (hashTags.length > 5) {
     target.setCustomValidity('Нельзя указывать больше пяти хэш-тегов;');
   } else {
-    for (var i = 0; i < hashTags.length; i++) {
-      if (hashTags[i][0] !== '#') {
+    for (var a = 0; a < hashTags.length; a++) {
+      if (hashTags[a][0] !== '#') {
         target.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка);');
         break;
-      } else if (hashTags[i].length < 2) {
+      } else if (hashTags[a].length < 2) {
         target.setCustomValidity('Хэш-тег не может состоять только из одной решётки;');
         break;
-      } else if (hashTags[i].length > 20) {
+      } else if (hashTags[a].length > 20) {
         target.setCustomValidity('Максимальная длина хэш-тега 20 символов, включая решётку;');
         break;
       } else {
-        for (var j = i + 1; j < hashTags.length; j++) {
-          if (hashTags[i].toLowerCase() === hashTags[j].toLowerCase()) {
+        for (var a = i + 1; a < hashTags.length; a++) {
+          if (hashTags[a].toLowerCase() === hashTags[j].toLowerCase()) {
             target.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды, теги нечувствительны к регистру;');
             break;
           }
