@@ -302,7 +302,7 @@ var onHashTagCheck = function (evt) {
       } else if (hashTags[a].length > 20) {
         target.setCustomValidity('Максимальная длина хэш-тега 20 символов, включая решётку;');
         break;
-      } else if (hashTags[a].match('#[a-zA-Zа-яА-Я0-9]*')[0] !== hashTags) {
+      } else if (hashTags[a].match('#[a-zA-Zа-яА-Я0-9]*')[0] !== hashTags[a]) {
         target.setCustomValidity('Хэштэг должен содержать только буквы и числа;');
       } else {
         for (var j = a + 1; j < hashTags.length; j++) {
