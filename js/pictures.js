@@ -59,7 +59,7 @@
         document.querySelector('.effects__list').removeEventListener('change', onEffectFilterChange);
       };
       document.querySelector('.effects__list').addEventListener('change', onEffectFilterChange);
-    } 
+    }
   };
 
   var setupEffectLevelLine = function (level) {
@@ -86,42 +86,42 @@
       EFFECTS_PREVIEW_SETTINGS[nameEffect].dimension + ')';
   };
 
-//Делегирование 
+  // Делегирование
   var setupScaleEffectLevel = function (level) {
     document.querySelector('.scale__control--value').value = level + '%';
     document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
   };
 
-// Перетаскивание
+  // Перетаскивание
   document.querySelector('.effect-level__pin').addEventListener('mousedown', function () {
     var width = document.querySelector('.effect-level__line').offsetWidth;
     var unitX = document.querySelector('.effect-level__line').getBoundingClientRect().x;
     var nameEffect = document.querySelector('.effects__radio:checked').value;
     var changeEffectLevel = function (evtX) {
-    var position = evtX - unitX;
+      var position = evtX - unitX;
       if (evtX < unitX) {
-          position = unitX;
+        position = unitX;
       } else if (evtX > (width + unitX)) {
-          position = width;
+        position = width;
       }
-    var level = position / width * 100;
-    setupEffectLevelLine(level);
-    setupEffectLevelLargePicture(level, nameEffect);
-  };
+      var level = position / width * 100;
+      setupEffectLevelLine(level);
+      setupEffectLevelLargePicture(level, nameEffect);
+    };
 
     var onEffectLevelTagMove = function (evt) {
       changeEffectLevel(evt.clientX);
-  };
+    };
 
-  var onEffectLevelTagMouseUp = function () {
-    document.removeEventListener('mousemove', onEffectLevelTagMove);
-    document.removeEventListener('mouseup', onEffectLevelTagMouseUp);
-  };
+    var onEffectLevelTagMouseUp = function () {
+      document.removeEventListener('mousemove', onEffectLevelTagMove);
+      document.removeEventListener('mouseup', onEffectLevelTagMouseUp);
+    };
     document.addEventListener('mousemove', onEffectLevelTagMove);
     document.addEventListener('mouseup', onEffectLevelTagMouseUp);
   });
 
-// Хэш-теги:
+  // Хэш-теги:
   var onHashTagCheck = function (evt) {
     var target = evt.target;
     var hashTags = target.value.split(' ');

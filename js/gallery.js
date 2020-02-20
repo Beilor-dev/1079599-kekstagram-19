@@ -15,7 +15,7 @@
     }
   };
 
-// Комментарии
+  // Комментарии
   var getCommentElement = function (comment) {
     var commentElement = commentsTemplate.cloneNode(true);
     commentElement.querySelector('.social__picture').src = 'img/avatar-' + window.utils.getАrbitraryIntFromInterval(MIN_COMMENTS_AVATAR_COUNT, MAX_COMMENTS_AVATAR_COUNT) + '.svg';
@@ -30,7 +30,7 @@
     return commentElementList;
   };
 
-// Фотографии
+  // Фотографии
   var getPictureElement = function (picture) {
     var pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = picture.url;
@@ -52,14 +52,14 @@
     document.querySelector('.social__caption').textContent = data.description;
   };
 
-// Создание и вставка на страницу превью изображений
+  // Создание и вставка на страницу превью изображений
   var photoElementsList = document.createDocumentFragment();
   for (var i = 0; i < window.data.NUMBER_OF_PHOTOS; i++) {
     photoElementsList.appendChild(getPictureElement(window.data.photos[i]));
   }
   document.querySelector('.pictures').appendChild(photoElementsList);
 
-// Скрываю блоки счётчика комментариев и загрузки новых комментариев
+  // Скрываю блоки счётчика комментариев и загрузки новых комментариев
   document.querySelector('.social__comment-count').classList.add('visally-hidden');
   document.querySelector('.comments-loader').classList.add('visally-hidden');
 })();

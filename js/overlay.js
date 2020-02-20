@@ -22,7 +22,7 @@
     }
   };
 
-// События
+  // События
   document.querySelector('.big-picture__cancel').addEventListener('click', function () {
     closeOverlayElement('.big-picture');
     document.removeEventListener('keydown', onLargePictureOverlayEscButtonPress);
@@ -33,7 +33,7 @@
     document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
   });
   var onImgUploadOverlayTxtInputFocus = function () {
-  document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
+    document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
   };
   var onImgUploadOverlayTxtInputBlot = function () {
     document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
