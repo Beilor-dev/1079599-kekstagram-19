@@ -23,9 +23,6 @@
   var MIN_COMMENTS_COUNT = 0;
   var MAX_COMMENTS_COUNT = 25;
 
-// // Создание MOCK данных
-//   var photos = buildItemsArrayWithGenerator(NUMBER_OF_PHOTOS, getАrbitraryPhoto);
-
   var getАrbitraryPhoto = function (photoCounter) {
     return {
       url: 'photos/' + (photoCounter + 1) + '.jpg',
