@@ -39,10 +39,10 @@
     }
   };
   var FILTER_EFFECT_DEFAULT = 100;
-  // var SCALE_EFFECT_STEP = 25;
+  var SCALE_EFFECT_STEP = 25;
   var SCALE_EFFECT_DEFAULT = 100;
-  // var SCALE_EFFECT_MIN = 25;
-  // var SCALE_EFFECT_MAX = 100;
+  var SCALE_EFFECT_MIN = 25;
+  var SCALE_EFFECT_MAX = 100;
 
   var setupFilterEffectClass = function (nameEffect) {
     if (nameEffect === 'none') {
@@ -86,10 +86,15 @@
       EFFECTS_PREVIEW_SETTINGS[nameEffect].dimension + ')';
   };
 
-  // Делегирование
+  // Маштабирование
   var setupScaleEffectLevel = function (level) {
     document.querySelector('.scale__control--value').value = level + '%';
     document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
+  };
+
+  var onsetupScaleEffectLevel = function (evt) {
+    var level = parseInt(document.querySelector('.scale__control--value'))
+    var target = evt.target;
   };
 
   // Перетаскивание
