@@ -86,7 +86,7 @@
   };
 
   var onScaleEffectLevel = function (evt) {
-    var level = parseInt(document.querySelector('.scale__control--value'))
+    var level = parseInt(document.querySelector('.scale__control--value').value, 10);
     var target = evt.target;
     if (target.classList.contains('scale__control--smaller')) {
       level -= SCALE_EFFECT_STEP;
