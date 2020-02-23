@@ -104,8 +104,8 @@
 
   document.querySelector('.img-upload__scale').addEventListener('click', onScaleEffectLevel);
   var getCurrentFilterStyle = function (level, nameEffect) {
-  return (nameEffect === 'none') ? 'none' :
-    EFFECTS_PREVIEW_SETTINGS[nameEffect].name + '(' +
+    return (nameEffect === 'none') ? 'none' :
+      EFFECTS_PREVIEW_SETTINGS[nameEffect].name + '(' +
     window.utils.intervalPercentageCalculation(level, EFFECTS_PREVIEW_SETTINGS[nameEffect].min, EFFECTS_PREVIEW_SETTINGS[nameEffect].max) +
     EFFECTS_PREVIEW_SETTINGS[nameEffect].dimension + ')';
   };

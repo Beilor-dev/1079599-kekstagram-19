@@ -53,12 +53,18 @@
   };
 
   // Создание и вставка на страницу превью изображений
-  var photoElementsList = document.createDocumentFragment();
-  for (var i = 0; i < window.data.NUMBER_OF_PHOTOS; i++) {
-    photoElementsList.appendChild(getPictureElement(window.data.photos[i]));
-  }
-  document.querySelector('.pictures').appendChild(photoElementsList);
+  var onLoad = function (data) {
+    var photoElementsList = document.createDocumentFragment();
+    data.forEach(function (item) {
+      photoElementsList.appendChild(getPictureElement(item));
+    });
+    // for (var i = 0; i < window.data.NUMBER_OF_PHOTOS; i++) {
+    // photoElementsList.appendChild(getPictureElement(window.data.photos[i]));
+    // }
+    document.querySelector('.pictures').appendChild(photoElementsList);
+  };
 
+  window.backend.downloadData(onLoad);
   // Скрываю блоки счётчика комментариев и загрузки новых комментариев
   document.querySelector('.social__comment-count').classList.add('visally-hidden');
   document.querySelector('.comments-loader').classList.add('visally-hidden');
