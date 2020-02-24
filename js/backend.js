@@ -16,7 +16,7 @@
     }
   };
 
-  var xhrRequest = function (setting, onLoad, data) {
+  var xhrRequest = function (setting, onLoad, onError, data) {
     var URL = setting.URL;
     var xhr = new XMLHttpRequest();
 
@@ -27,18 +27,25 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
         onLoad(xhr.response);
-      // } else {
+      } else {
+        onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
+    });
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
+    xhr.addEventListener('timeout', function () {
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
     xhr.send(data);
   };
 
-  var downloadData = function (onLoad) {
-    xhrRequest(INQUIRY_SETTINGS.get, onLoad);
+  var downloadData = function (onLoad, onError) {
+    xhrRequest(INQUIRY_SETTINGS.get, onLoad, onError);
   };
-  var uploadData = function (data, onLoad) {
-    xhrRequest(INQUIRY_SETTINGS.post, onLoad, data);
+  var uploadData = function (data, onLoad, onError) {
+    xhrRequest(INQUIRY_SETTINGS.post, onLoad, onError, data);
   };
 
   window.backend = {
