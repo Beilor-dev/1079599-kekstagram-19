@@ -72,8 +72,7 @@
     });
     errorOverlayElement.querySelector('.error__button:last-child').classList.add('hidden');
     document.querySelector('main').appendChild(errorOverlayElement);
-  };
-
+  }
 
   window.backend.downloadData(onLoad);
   // Скрываю блоки счётчика комментариев и загрузки новых комментариев
