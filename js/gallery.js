@@ -63,6 +63,17 @@
     // }
     document.querySelector('.pictures').appendChild(photoElementsList);
   };
+  var onError = function (text) {
+    var errorOverlayElement = window.overlay.getErrorOverlayElement();
+    errorOverlayElement.querySelector('.error__title').innerText = text;
+    errorOverlayElement.querySelector('error__button').addEventListener('click', function() {
+      window.overlay.removeOverlayElement('.error');
+      window.backend.downloadData(onLoad, onError);
+    });
+    errorOverlayElement.querySelector('.error__button:last-child').classList.add('hidden');
+    document.querySelector('main').appendChild(errorOverlayElement);
+  };
+
 
   window.backend.downloadData(onLoad);
   // Скрываю блоки счётчика комментариев и загрузки новых комментариев
