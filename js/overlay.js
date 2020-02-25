@@ -41,6 +41,28 @@
   //   }
   // };
 
+  // var onSuccessOverlayClick = function (evt) {
+  //   var target = evt.target;
+  //   if ((target === document.querySelector('.success')) || (target === document.querySelector('.success__button'))) {
+  //     removeOverlayElement('.success');
+  //     document.removeEventListener('keydown', onSuccessOverlayEscButtonPress);
+  //   }
+  // };
+
+  // var getErrorOverlayUnit = function (evt) {
+  //   var errorOverlayUnit = errorOverlayTemplate.cloneNode(true);
+  //   errorOverlayUnit.addEventListener('click', onErrorOverlayClick);
+  //   document.addEventListener('keydown', onErrorOverlayEscButtonPress);
+  //   return errorOverlayUnit
+  // }
+
+  // var getSuccessOvelrayUnit = function (evt) {  
+  //   var successOverlayUnit = successOverlayTemplate.cloneNode(true);
+  //   successOverlayUnit.addEventListener('click', onSuccessOverlayClick);
+  //   document.addEventListener('keydown', onSuccessOverlayEscButtonPress);
+  //   return successOverlayUnit;
+  // };
+
   var onLargePictureOverlayEscButtonPress = function (evt) {
     if (evt.keyCode === ESCAPE_KEYCODE) {
       closeOverlayElement('.big-picture');
@@ -66,6 +88,7 @@
     closeOverlayElement('.img-upload__overlay');
     document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
   });
+  
   var onImgUploadOverlayTxtInputFocus = function () {
     document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
   };
@@ -80,6 +103,8 @@
     onLargePictureOverlayEscButtonPress: onLargePictureOverlayEscButtonPress,
     onImgUploadOverlayEscButtonPress: onImgUploadOverlayEscButtonPress,
     // deleteOverlayElement: deleteOverlayElement,
-    // closeOverlayElement: closeOverlayElement
+    closeOverlayElement: closeOverlayElement,
+    // getErrorOverlayUnit:  getErrorOverlayUnit,
+    // getSuccessOvelrayUnit: getSuccessOvelrayUnit
   };
 })();
