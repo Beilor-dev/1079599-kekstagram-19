@@ -39,10 +39,10 @@
     }
   };
   var FILTER_EFFECT_DEFAULT = 100;
-  // var SCALE_EFFECT_STEP = 25;
+  var SCALE_EFFECT_STEP = 25;
   var SCALE_EFFECT_DEFAULT = 100;
-  // var SCALE_EFFECT_MIN = 25;
-  // var SCALE_EFFECT_MAX = 100;
+  var SCALE_EFFECT_MIN = 25;
+  var SCALE_EFFECT_MAX = 100;
 
   var setupFilterEffectClass = function (nameEffect) {
     if (nameEffect === 'none') {
@@ -79,17 +79,35 @@
     setupEffectLevelLargePicture(FILTER_EFFECT_DEFAULT, nameEffect);
   };
 
-  var getCurrentFilterStyle = function (level, nameEffect) {
-    return (nameEffect === 'none') ? 'none' :
-      EFFECTS_PREVIEW_SETTINGS[nameEffect].name + '(' +
-      window.utils.intervalPercentageCalculation(level, EFFECTS_PREVIEW_SETTINGS[nameEffect].min, EFFECTS_PREVIEW_SETTINGS[nameEffect].max) +
-      EFFECTS_PREVIEW_SETTINGS[nameEffect].dimension + ')';
-  };
-
-  // Делегирование
+  // Маштабирование
   var setupScaleEffectLevel = function (level) {
     document.querySelector('.scale__control--value').value = level + '%';
     document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
+  };
+
+  var onScaleEffectLevel = function (evt) {
+    var level = parseInt(document.querySelector('.scale__control--value').value, 10);
+    var target = evt.target;
+    if (target.classList.contains('scale__control--smaller')) {
+      level -= SCALE_EFFECT_STEP;
+      if (level <= SCALE_EFFECT_MIN) {
+        level = SCALE_EFFECT_MIN;
+      }
+    } else if (target.classList.contains('scale__control--bigger')) {
+      level += SCALE_EFFECT_STEP;
+      if (level >= SCALE_EFFECT_MAX) {
+        level = SCALE_EFFECT_MAX;
+      }
+    }
+    setupScaleEffectLevel(level);
+  };
+
+  document.querySelector('.img-upload__scale').addEventListener('click', onScaleEffectLevel);
+  var getCurrentFilterStyle = function (level, nameEffect) {
+    return (nameEffect === 'none') ? 'none' :
+      EFFECTS_PREVIEW_SETTINGS[nameEffect].name + '(' +
+    window.utils.intervalPercentageCalculation(level, EFFECTS_PREVIEW_SETTINGS[nameEffect].min, EFFECTS_PREVIEW_SETTINGS[nameEffect].max) +
+    EFFECTS_PREVIEW_SETTINGS[nameEffect].dimension + ')';
   };
 
   // Перетаскивание
