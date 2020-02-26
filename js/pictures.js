@@ -191,9 +191,25 @@
     document.querySelector('main').appendChild(successOverlayUnit);
   };
 
+  var onError = function (text) {
+    var erroOverlayUnit = window.overlay.getErrorOverlayUnit();
+    erroOverlayUnit.querySelector('.error__title').innerText = text;
+
+    window.overlay.closeOverlayUnit('.img-upload__overlay');
+    document.querySelector('#upload-file').value = '';
+    document.removeEventListener('keydown', window.overlay.onImgUploadOverlayEscButtonPress);
+
+    erroOverlayUnit.querySelectorAll('error__button').forEach(function (elem) {
+      elem.addEventListener('click', function () {
+        window.overlay.deleteOverlayUnit('.error');
+      });
+    });
+    document.querySelector('main').appendChild(erroOverlayUnit); 
+  };
+
   var onSubmitButtonClick = function (evt) {
     evt.preventDefault();
-    window.backend.uploadData(new FormData(evt.target), onLoad);
+    window.backend.uploadData(new FormData(evt.target), onLoad, onError);
   };
   document.querySelector('#upload-select-image').addEventListener('submit', onSubmitButtonClick);
 })();

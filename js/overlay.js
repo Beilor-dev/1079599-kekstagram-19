@@ -20,7 +20,7 @@
     .querySelector('.success');
 
   var onErrorOverlayEscButtonPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === ESCAPE_KEYCODE) {
       deleteOverlayUnit('.error');
       document.removeEventListener('keydown', onErrorOverlayEscButtonPress);
     }

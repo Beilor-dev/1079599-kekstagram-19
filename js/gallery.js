@@ -64,11 +64,11 @@
     document.querySelector('.pictures').appendChild(photoElementsList);
   };
   var onError = function (text) {
-    var errorOverlayElement = window.overlay.getErrorOverlayElement();
+    var errorOverlayElement = window.overlay.getErrorOverlayUnit();
     errorOverlayElement.querySelector('.error__title').innerText = text;
-    errorOverlayElement.querySelector('error__button').addEventListener('click', function () {
+    errorOverlayElement.querySelector('.error__button').addEventListener('click', function () {
       window.overlay.removeOverlayElement('.error');
-      window.backend.downloadData(onLoad, onError);
+      window.backend.download(onLoad, onError);
     });
     errorOverlayElement.querySelector('.error__button:last-child').classList.add('hidden');
     document.querySelector('main').appendChild(errorOverlayElement);
