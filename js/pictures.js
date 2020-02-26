@@ -183,7 +183,7 @@
 
   document.querySelector('.effects__list').addEventListener('change', onFilterEffectChange);
 
-  var onLoad = function () {
+   var onLoad = function () {
     window.overlay.closeOverlayUnit('.img-upload__overlay');
     document.querySelector('#upload-file').value = '';
     document.removeEventListener('keydown', window.overlay.onImgUploadOverlayEscButtonPress);
@@ -192,19 +192,19 @@
   };
 
   var onError = function (text) {
-    var erroOverlayUnit = window.overlay.getErrorOverlayUnit();
-    erroOverlayUnit.querySelector('.error__title').innerText = text;
+    var errorOverlayUnit = window.overlay.getErrorOverlayUnit();
+    errorOverlayUnit.querySelector('.error__title').innerText = text;
 
     window.overlay.closeOverlayUnit('.img-upload__overlay');
     document.querySelector('#upload-file').value = '';
     document.removeEventListener('keydown', window.overlay.onImgUploadOverlayEscButtonPress);
 
-    erroOverlayUnit.querySelectorAll('error__button').forEach(function (elem) {
+    errorOverlayUnit.querySelectorAll('.error__button').forEach(function (elem) {
       elem.addEventListener('click', function () {
         window.overlay.deleteOverlayUnit('.error');
       });
     });
-    document.querySelector('main').appendChild(erroOverlayUnit); 
+    document.querySelector('main').appendChild(errorOverlayUnit); 
   };
 
   var onSubmitButtonClick = function (evt) {
