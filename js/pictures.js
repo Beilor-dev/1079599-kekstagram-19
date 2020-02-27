@@ -183,7 +183,7 @@
 
   document.querySelector('.effects__list').addEventListener('change', onFilterEffectChange);
 
-   var onLoad = function () {
+  var onLoad = function () {
     window.overlay.closeOverlayUnit('.img-upload__overlay');
     document.querySelector('#upload-file').value = '';
     document.removeEventListener('keydown', window.overlay.onImgUploadOverlayEscButtonPress);
@@ -204,7 +204,7 @@
         window.overlay.deleteOverlayUnit('.error');
       });
     });
-    document.querySelector('main').appendChild(errorOverlayUnit); 
+    document.querySelector('main').appendChild(errorOverlayUnit);
   };
 
   var onSubmitButtonClick = function (evt) {
