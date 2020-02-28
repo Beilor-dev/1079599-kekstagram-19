@@ -64,14 +64,14 @@
     document.querySelector('.pictures').appendChild(photoElementsList);
   };
   var onError = function (text) {
-    var errorOverlayElement = window.overlay.getErrorOverlayElement();
-    errorOverlayElement.querySelector('.error__title').innerText = text;
-    errorOverlayElement.querySelector('error__button').addEventListener('click', function () {
-      window.overlay.removeOverlayElement('.error');
-      window.backend.downloadData(onLoad, onError);
+    var errorOverlayUnit = window.overlay.getErrorOverlayUnit();
+    errorOverlayUnit.querySelector('.error__title').innerText = text;
+    errorOverlayUnit.querySelector('.error__button').addEventListener('click', function () {
+      window.overlay.deleteOverlayUnit('.error');
+      window.backend.download(onLoad, onError);
     });
-    errorOverlayElement.querySelector('.error__button:last-child').classList.add('hidden');
-    document.querySelector('main').appendChild(errorOverlayElement);
+    errorOverlayUnit.querySelector('.error__button').classList.add('hidden');
+    document.querySelector('main').appendChild(errorOverlayUnit);
   };
 
   window.backend.downloadData(onLoad, onError);
