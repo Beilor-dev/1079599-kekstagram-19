@@ -60,10 +60,22 @@
     document.querySelector('.pictures').appendChild(photoElementsList);
   };
 
+  var attachEventToImgSortingButton = function (data) {
+    var onImgSortingClick = function (evt) {
+      var target = evt.target;
+      if (!target.classList.contains('img-filters__button--active') && target.classList.contains('img-filters__button')) {
+        document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+        target.classList.add('img-filters__button--active');
+      }
+    };
+    document.querySelector('.img-filters__form').addEventListener('click', onImgSortingClick);
+  };
+
   // Создание и вставка на страницу превью изображений
   var onLoad = function (data) {
     addGalleryData(data);
     document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
+    attachEventToImgSortingButton(data);
     // var photoElementsList = document.createDocumentFragment();
     // data.forEach(function (item) {
     //   photoElementsList.appendChild(getPictureElement(item));
