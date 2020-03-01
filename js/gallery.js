@@ -52,16 +52,26 @@
     document.querySelector('.social__caption').textContent = data.description;
   };
 
-  // Создание и вставка на страницу превью изображений
-  var onLoad = function (data) {
+  var addGalleryData = function (data) {
     var photoElementsList = document.createDocumentFragment();
-    data.forEach(function (item) {
+    data.forEach(function(item ) {
       photoElementsList.appendChild(getPictureElement(item));
     });
-    // for (var i = 0; i < window.data.NUMBER_OF_PHOTOS; i++) {
-    // photoElementsList.appendChild(getPictureElement(window.data.photos[i]));
-    // }
     document.querySelector('.pictures').appendChild(photoElementsList);
+  };
+
+  // Создание и вставка на страницу превью изображений
+  var onLoad = function (data) {
+    addGalleryData(data);
+    document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
+    // var photoElementsList = document.createDocumentFragment();
+    // data.forEach(function (item) {
+    //   photoElementsList.appendChild(getPictureElement(item));
+    // });
+    // // for (var i = 0; i < window.data.NUMBER_OF_PHOTOS; i++) {
+    // // photoElementsList.appendChild(getPictureElement(window.data.photos[i]));
+    // // }
+    // document.querySelector('.pictures').appendChild(photoElementsList);
   };
   var onError = function (text) {
     var errorOverlayUnit = window.overlay.getErrorOverlayUnit();
