@@ -9,10 +9,10 @@
     .querySelector('.picture');
   var commentsTemplate = document.querySelector('.social__comment').cloneNode(true);
 
-  var removeAllChild = function (element) {
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
+  var removeAllChild = function (elements) {
+    elements.forEach(function (elem) {
+      elem.remove();
+    });
   };
 
   // Комментарии
@@ -54,7 +54,7 @@
 
   var addGalleryData = function (data) {
     var photoElementsList = document.createDocumentFragment();
-    data.forEach(function(item ) {
+    data.forEach(function (item) {
       photoElementsList.appendChild(getPictureElement(item));
     });
     document.querySelector('.pictures').appendChild(photoElementsList);
@@ -66,6 +66,14 @@
       if (!target.classList.contains('img-filters__button--active') && target.classList.contains('img-filters__button')) {
         document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
         target.classList.add('img-filters__button--active');
+        var newData = data;
+        if (target.id === 'filter-random') {
+          newData = window.sorting.arbitary(data);
+        }
+        window.debounce(function () {
+          removeAllChild(document.querySelectorAll('.container.pictures a.picture'));
+          addGalleryData(newData);
+        });
       }
     };
     document.querySelector('.img-filters__form').addEventListener('click', onImgSortingClick);
