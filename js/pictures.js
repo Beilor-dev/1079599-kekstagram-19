@@ -102,23 +102,27 @@
     setupScaleEffectLevel(level);
   };
 
+  var intervalPercentageCalculation = function (percent, min, max) {
+    return (percent / 100) * (max - min) + min;
+  };
+
   document.querySelector('.img-upload__scale').addEventListener('click', onScaleEffectLevel);
   var getCurrentFilterStyle = function (level, nameEffect) {
     return (nameEffect === 'none') ? 'none' :
       EFFECTS_PREVIEW_SETTINGS[nameEffect].name + '(' +
-    window.utils.intervalPercentageCalculation(level, EFFECTS_PREVIEW_SETTINGS[nameEffect].min, EFFECTS_PREVIEW_SETTINGS[nameEffect].max) +
+    intervalPercentageCalculation(level, EFFECTS_PREVIEW_SETTINGS[nameEffect].min, EFFECTS_PREVIEW_SETTINGS[nameEffect].max) +
     EFFECTS_PREVIEW_SETTINGS[nameEffect].dimension + ')';
   };
 
   // Перетаскивание
   document.querySelector('.effect-level__pin').addEventListener('mousedown', function () {
     var width = document.querySelector('.effect-level__line').offsetWidth;
-    var unitX = document.querySelector('.effect-level__line').getBoundingClientRect().x;
+    var unitX = document.querySelector('.effect-level__line').getBoundingClientRect().left;
     var nameEffect = document.querySelector('.effects__radio:checked').value;
     var changeEffectLevel = function (evtX) {
       var position = evtX - unitX;
       if (evtX < unitX) {
-        position = unitX;
+        position = 0;
       } else if (evtX > (width + unitX)) {
         position = width;
       }

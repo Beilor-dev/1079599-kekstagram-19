@@ -31,8 +31,8 @@
   };
   var displayCommentsGroup = function (comments) {
     var groupSize = (comments.length <= SHOW_GROUP_COMMENTS) ? comments.length : SHOW_GROUP_COMMENTS;
-    var showMoreClick = function () {
-      document.querySelector('.comments-loader').removeEventListener('click', showMoreClick);
+    var buttonShowMoreClick = function () {
+      document.querySelector('.comments-loader').removeEventListener('click', buttonShowMoreClick);
       displayCommentsGroup(comments);
     };
     document.querySelector('.comments-count').textContent = comments.length;
@@ -41,7 +41,7 @@
     if (comments.length === 0) {
       document.querySelector('.comments-loader').classList.add('visually-hidden');
     } else {
-      document.querySelector('.comments-loader').addEventListener('click', showMoreClick);
+      document.querySelector('.comments-loader').addEventListener('click', buttonShowMoreClick);
     }
   };
 
@@ -85,7 +85,7 @@
         if (target.id === 'filter-random') {
           newData = window.sorting.arbitary(data);
         } else if (target.id === 'filter-discussed') {
-          newData = window.sorting.onComments(data)
+          newData = window.sorting.onComments(data);
         }
         window.debounce(function () {
           removeAllChild(document.querySelectorAll('.container.pictures a.picture'));
