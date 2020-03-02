@@ -3,7 +3,7 @@
 (function () {
   var MIN_COMMENTS_AVATAR_COUNT = 1;
   var MAX_COMMENTS_AVATAR_COUNT = 6;
-
+  // var SHOW_GROUP_COMMENTS = 5;
   var pictureTemplate = document.querySelector('#picture')
     .content
     .querySelector('.picture');
@@ -29,6 +29,13 @@
     }
     return commentElementList;
   };
+  // var displayCommentsGroup = function (comments) {
+  //   var groupSize = (comments.length <= SHOW_GROUP_COMMENTS) ? comments.length : SHOW_GROUP_COMMENTS;
+  //   var ShowMoreClick = function () {
+  //     document.querySelector('.comments-loader').removeEventListener('click', ShowMoreClick);
+  //     displayCommentsGroup(comments);
+  //   };
+  // };
 
   // Фотографии
   var getPictureElement = function (picture) {
@@ -69,6 +76,8 @@
         var newData = data;
         if (target.id === 'filter-random') {
           newData = window.sorting.arbitary(data);
+        } else if (target.id === 'filter-discussed') {
+          newData = window.sorting.onComments(data)
         }
         window.debounce(function () {
           removeAllChild(document.querySelectorAll('.container.pictures a.picture'));

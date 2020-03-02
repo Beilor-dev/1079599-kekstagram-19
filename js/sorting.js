@@ -12,8 +12,15 @@
     return total;
   };
 
+  var sortOnComments = function (data) {
+    var localData = data.slice(0);
+    return localData.sort(function(a, b) {
+      return b.comments.length - a.comments.length;
+    });
+  };
 
   window.sorting = {
     arbitary: sortArbitary,
+    onComments: sortOnComments,
   };
 })();
