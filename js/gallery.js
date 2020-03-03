@@ -54,7 +54,7 @@
     pictureElement.addEventListener('click', function () {
       updateLargePictureData(picture);
       document.querySelector('.big-picture').classList.remove('hidden');
-      document.addEventListener('keydown', window.overlay.onLargePictureOverlayEscButtonPress);
+      document.addEventListener('keydown', window.overlay.onLargePictureEscButtonPress);
     });
     return pictureElement;
   };
@@ -96,25 +96,16 @@
     document.querySelector('.img-filters__form').addEventListener('click', onImgSortingClick);
   };
 
-  // Создание и вставка на страницу превью изображений
   var onLoad = function (data) {
     addGalleryData(data);
     document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
     attachEventToImgSortingButton(data);
-    // var photoElementsList = document.createDocumentFragment();
-    // data.forEach(function (item) {
-    //   photoElementsList.appendChild(getPictureElement(item));
-    // });
-    // // for (var i = 0; i < window.data.NUMBER_OF_PHOTOS; i++) {
-    // // photoElementsList.appendChild(getPictureElement(window.data.photos[i]));
-    // // }
-    // document.querySelector('.pictures').appendChild(photoElementsList);
   };
   var onError = function (text) {
-    var errorOverlayUnit = window.overlay.getErrorOverlayUnit();
+    var errorOverlayUnit = window.overlay.getErrorUnit();
     errorOverlayUnit.querySelector('.error__title').innerText = text;
     errorOverlayUnit.querySelector('.error__button').addEventListener('click', function () {
-      window.overlay.deleteOverlayUnit('.error');
+      window.overlay.deleteUnit('.error');
       window.backend.download(onLoad, onError);
     });
     errorOverlayUnit.querySelector('.error__button').classList.add('hidden');
@@ -122,7 +113,4 @@
   };
 
   window.backend.downloadData(onLoad, onError);
-  // Скрываю блоки счётчика комментариев и загрузки новых комментариев
-  // document.querySelector('.social__comment-count').classList.add('visally-hidden');
-  // document.querySelector('.comments-loader').classList.add('visally-hidden');
 })();

@@ -182,30 +182,30 @@
     document.querySelector('.text__description').value = '';
     onFilterEffectChange();
     setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
-    document.addEventListener('keydown', window.overlay.onImgUploadOverlayEscButtonPress);
+    document.addEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
   });
 
   document.querySelector('.effects__list').addEventListener('change', onFilterEffectChange);
 
   var onLoad = function () {
-    window.overlay.closeOverlayUnit('.img-upload__overlay');
+    window.overlay.closeUnit('.img-upload__overlay');
     document.querySelector('#upload-file').value = '';
-    document.removeEventListener('keydown', window.overlay.onImgUploadOverlayEscButtonPress);
-    var successOverlayUnit = window.overlay.getSuccessOverlayUnit();
+    document.removeEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
+    var successOverlayUnit = window.overlay.getSuccessUnit();
     document.querySelector('main').appendChild(successOverlayUnit);
   };
 
   var onError = function (text) {
-    var errorOverlayUnit = window.overlay.getErrorOverlayUnit();
+    var errorOverlayUnit = window.overlay.getErrorUnit();
     errorOverlayUnit.querySelector('.error__title').innerText = text;
 
-    window.overlay.closeOverlayUnit('.img-upload__overlay');
+    window.overlay.closeUnit('.img-upload__overlay');
     document.querySelector('#upload-file').value = '';
-    document.removeEventListener('keydown', window.overlay.onImgUploadOverlayEscButtonPress);
+    document.removeEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
 
     errorOverlayUnit.querySelectorAll('.error__button').forEach(function (elem) {
       elem.addEventListener('click', function () {
-        window.overlay.deleteOverlayUnit('.error');
+        window.overlay.deleteUnit('.error');
       });
     });
     document.querySelector('main').appendChild(errorOverlayUnit);
