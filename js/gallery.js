@@ -1,15 +1,15 @@
 'use strict';
 
 (function () {
-  var MIN_COMMENTS_AVATAR_COUNT = 1;
-  var MAX_COMMENTS_AVATAR_COUNT = 6;
+  // var MIN_COMMENTS_AVATAR_COUNT = 1;
+  // var MIN_COMMENTS_AVATAR_COUNT = 6;
   var SHOW_GROUP_COMMENTS = 5;
   var pictureTemplate = document.querySelector('#picture')
     .content
     .querySelector('.picture');
   var commentsTemplate = document.querySelector('.social__comment').cloneNode(true);
 
-  var removeAllChild = function (elements) {
+  var removeAllElements = function (elements) {
     elements.forEach(function (elem) {
       elem.remove();
     });
@@ -18,8 +18,9 @@
   // Комментарии
   var getCommentElement = function (comment) {
     var commentElement = commentsTemplate.cloneNode(true);
-    commentElement.querySelector('.social__picture').src = 'img/avatar-' + window.utils.getАrbitraryIntFromInterval(MIN_COMMENTS_AVATAR_COUNT, MAX_COMMENTS_AVATAR_COUNT) + '.svg';
-    commentElement.querySelector('.social__text').textContent = comment;
+    commentElement.querySelector('.social__picture').src = comment.avatar;
+    commentElement.querySelector('.social__picture').alt = comment.name;
+    commentElement.querySelector('.social__text').textContent = comment.message;
     return commentElement;
   };
   var buildCommentsFragment = function (comments) {
@@ -29,6 +30,7 @@
     }
     return commentElementList;
   };
+
   var displayCommentsGroup = function (comments) {
     var groupSize = (comments.length <= SHOW_GROUP_COMMENTS) ? comments.length : SHOW_GROUP_COMMENTS;
     var buttonShowMoreClick = function () {
@@ -38,6 +40,7 @@
     document.querySelector('.comments-count').textContent = comments.length;
     document.querySelector('.social__comments').appendChild(buildCommentsFragment(comments.splice(0, groupSize)));
     document.querySelector('.social__comment-count').classList.add('visually-hidden');
+
     if (comments.length === 0) {
       document.querySelector('.comments-loader').classList.add('visually-hidden');
     } else {
@@ -61,7 +64,7 @@
   var updateLargePictureData = function (data) {
     document.querySelector('.big-picture__img img').src = data.url;
     document.querySelector('.likes-count').textContent = data.likes;
-    removeAllChild(document.querySelectorAll('.social__comment'));
+    removeAllElements(document.querySelectorAll('.social__comment'));
     document.querySelector('.comments-loader').classList.remove('visually-hidden');
     displayCommentsGroup(data.comments.slice(0));
     document.querySelector('.social__caption').textContent = data.description;
@@ -87,17 +90,17 @@
         } else if (target.id === 'filter-discussed') {
           newData = window.sorting.onComments(data);
         }
-        window.debounce(function () {
-          removeAllChild(document.querySelectorAll('.container.pictures a.picture'));
-          addGalleryData(newData);
-        });
+        removeAllElements(document.querySelectorAll('.container.pictures a.picture'));
+        addGalleryData(newData);
       }
     };
     document.querySelector('.img-filters__form').addEventListener('click', onImgSortingClick);
   };
 
   var onLoad = function (data) {
-    addGalleryData(data);
+    window.debounce(function () {
+      addGalleryData(data);
+    });
     document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
     attachEventToImgSortingButton(data);
   };
