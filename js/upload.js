@@ -11,14 +11,14 @@
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
-        return fileName.endsWith(it);
+      return fileName.endsWith(it);
     });
     if (matches) {
-        var reader = new FileReader();
-        reader.addEventListener('load', function () {
-            previewUploadFile.src = reader.result;
-        });
-        reader.readAsDataURL(file);
+      var reader = new FileReader();
+      reader.addEventListener('load', function () {
+          previewUploadFile.src = reader.result;
+      });
+      reader.readAsDataURL(file);
     }
   });
   // document.querySelector('#upload-file').addEventListener('change', function (evt) {
