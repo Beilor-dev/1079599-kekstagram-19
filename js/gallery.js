@@ -98,9 +98,7 @@
   };
 
   var onLoad = function (data) {
-    window.debounce(function () {
-      addGalleryData(data);
-    });
+    addGalleryData(data);
     document.querySelector('.img-filters--inactive').classList.remove('img-filters--inactive');
     attachEventToImgSortingButton(data);
   };
@@ -109,11 +107,11 @@
     errorOverlayUnit.querySelector('.error__title').innerText = text;
     errorOverlayUnit.querySelector('.error__button').addEventListener('click', function () {
       window.overlay.deleteUnit('.error');
-      window.backend.download(onLoad, onError);
+      window.backend.load(onLoad, onError);
     });
     errorOverlayUnit.querySelector('.error__button').classList.add('hidden');
     document.querySelector('main').appendChild(errorOverlayUnit);
   };
 
-  window.backend.downloadData(onLoad, onError);
+  window.backend.load(onLoad, onError);
 })();

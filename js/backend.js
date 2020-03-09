@@ -1,55 +1,46 @@
 'use strict';
 
 (function () {
-  var INQUIRY_SETTINGS = {
-    get: {
-      URL: 'https://js.dump.academy/kekstagram/data',
-      requestType: 'GET',
-      dataType: 'json',
-      timeout: 10000
-    },
-    post: {
-      URL: 'https://js.dump.academy/kekstagram',
-      requestType: 'POST',
-      dataType: 'json',
-      timeout: 10000
-    }
+  var xhrParameters = {
+    LINK_LOAD: 'https://js.dump.academy/kekstagram/data',
+    LINK_SAVE: 'https://js.dump.academy/kekstagram',
+    ERROR_CODE: 200,
+    TIMEOUT_MS: 1000
   };
 
-  var xhrRequest = function (setting, onLoad, onError, data) {
-    var URL = setting.URL;
+  var getParamsXhr = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
-
-    xhr.responseType = setting.dataType;
-    xhr.open(setting.requestType, URL);
-    xhr.timeout = setting.timeout;
-
+    xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === xhrParameters.ERROR_CODE) {
         onLoad(xhr.response);
       } else {
-        onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError('Статус ответа:' + xhr.status + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
+
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.send(data);
-  };
+    xhr.timeout = xhrParameters.TIMEOUT_MS;
 
-  var downloadData = function (onLoad, onError) {
-    xhrRequest(INQUIRY_SETTINGS.get, onLoad, onError);
-  };
-  var uploadData = function (data, onLoad, onError) {
-    xhrRequest(INQUIRY_SETTINGS.post, onLoad, onError, data);
+    return xhr;
   };
 
   window.backend = {
-    downloadData: downloadData,
-    uploadData: uploadData
+    load: function (onLoad, onError) {
+      var xhr = getParamsXhr(onLoad, onError);
+      xhr.open('GET', xhrParameters.LINK_LOAD);
+      xhr.send();
+    },
+    save: function (data, onLoad, onError) {
+      var xhr = getParamsXhr(onLoad, onError);
+      xhr.open('POST', xhrParameters.LINK_SAVE);
+      xhr.send(data);
+    }
   };
 })();
