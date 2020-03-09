@@ -90,8 +90,10 @@
         } else if (target.id === 'filter-discussed') {
           newData = window.sorting.onComments(data);
         }
-        removeAllElements(document.querySelectorAll('.container.pictures a.picture'));
-        addGalleryData(newData);
+        window.debounce(function () {
+          removeAllElements(document.querySelectorAll('.container.pictures a.picture'));
+          addGalleryData(newData);
+        });
       }
     };
     document.querySelector('.img-filters__form').addEventListener('click', onImgSortingClick);
