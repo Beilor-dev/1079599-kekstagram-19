@@ -174,15 +174,21 @@
       }
     }
   };
-  document.querySelector('.text__hashtags').addEventListener('input', onHashTagCheck);
+  document.querySelector('.text__hashtags').setCustomValidity('');
 
   document.querySelector('#upload-file').addEventListener('change', function () {
-    document.querySelector('.img-upload__overlay').classList.remove('hidden');
-    document.querySelector('.text__hashtags').value = '';
+    var hashTagField = document.querySelector('.text__hashtags');
     document.querySelector('.text__description').value = '';
+    document.querySelector('.effects__radio').checked = true;
+    document.querySelector('.scale__control--value').value = '100%';
+    hashTagField.value = '';
+    hashTagField.setCustomValidity('');
+    hashTagField.addEventListener('input', onHashTagCheck);
     onFilterEffectChange();
     setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
     document.addEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
+
+    document.querySelector('.img-upload__overlay').classList.remove('hidden');
   });
 
   document.querySelector('.effects__list').addEventListener('change', onFilterEffectChange);
