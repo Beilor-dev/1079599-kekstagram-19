@@ -213,7 +213,7 @@
 
   var onSubmitButtonClick = function (evt) {
     evt.preventDefault();
-    window.backend.uploadData(new FormData(evt.target), onLoad, onError);
+    window.backend.save(new FormData(evt.target), onLoad, onError);
   };
   document.querySelector('#upload-select-image').addEventListener('submit', onSubmitButtonClick);
 })();

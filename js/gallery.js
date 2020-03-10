@@ -71,11 +71,13 @@
   };
 
   var addGalleryData = function (data) {
+    window.debounce(function () {
     var photoElementsList = document.createDocumentFragment();
     data.forEach(function (item) {
       photoElementsList.appendChild(getPictureElement(item));
     });
     document.querySelector('.pictures').appendChild(photoElementsList);
+    });
   };
 
   // var debounceGalleryData = window.debounce(addGalleryData);

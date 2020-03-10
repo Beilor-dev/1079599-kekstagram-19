@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var FILE_TYPES = ['jpg', 'jpeg', 'png', 'png', 'gif'];
+  var FILE_TYPES = ['jpg', 'jpeg', 'png', 'png', 'gif', 'webp'];
 
   var imgUploadFile = document.querySelector('#upload-file');
   var previewUploadFile = document.querySelector('.img-upload__preview img');
