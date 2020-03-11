@@ -1,8 +1,17 @@
 'use strict';
 
 (function () {
-  var textHashtag = document.querySelector('.text__hashtags');
+  var textComment = document.querySelector('.text__description');
+  var onCommentInputLength = function () {
+    if (textComment.value.length > 140) {
+      textComment.setCustomValidity('Длина комментария не может составлять больше 140 символов');
+      setupRedBorder(textComment);
+    } else {
+      clearCustomValidation(textComment);
+    }
+  };
 
+  var textHashtag = document.querySelector('.text__hashtags');
   var onHashTagCheck = function () {
     var tags = textHashtag.value;
     var toLowerCaseTags = tags.toLowerCase();
@@ -94,10 +103,12 @@
   	}
   	textHashtag.setCustomValidity(validationErrorMessage);
   };
+  textComment.addEventListener('input', onCommentInputLength);
 
-  textHashtag.addEventListener('input', onHashTagCheck)
+  textHashtag.addEventListener('input', onHashTagCheck);
 
   var clearStringHashtagsComment = function () {
   	textHashtag.value = '';
+    textComment.value = '';
   };
 })();
