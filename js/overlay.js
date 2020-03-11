@@ -100,11 +100,11 @@
   document.querySelector('.text__description').addEventListener('focus', onImgUploadOverlayTxtInputFocus);
   document.querySelector('.text__description').addEventListener('blur', onImgUploadOverlayTxtInputBlot);
   window.overlay = {
-    onLargePictureOverlayEscButtonPress: onLargePictureOverlayEscButtonPress,
-    onImgUploadOverlayEscButtonPress: onImgUploadOverlayEscButtonPress,
-    deleteOverlayUnit: deleteOverlayUnit,
-    closeOverlayUnit: closeOverlayUnit,
-    getErrorOverlayUnit: getErrorOverlayUnit,
-    getSuccessOverlayUnit: getSuccessOverlayUnit
+    onLargePictureEscButtonPress: onLargePictureOverlayEscButtonPress,
+    onImgUploadEscButtonPress: onImgUploadOverlayEscButtonPress,
+    deleteUnit: deleteOverlayUnit,
+    closeUnit: closeOverlayUnit,
+    getErrorUnit: getErrorOverlayUnit,
+    getSuccessUnit: getSuccessOverlayUnit
   };
 })();
