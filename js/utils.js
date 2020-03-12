@@ -6,7 +6,7 @@
   };
 
   window.utils = {
-    getАrbitraryIntFromInterval: getАrbitraryIntFromInterval, 
+    getАrbitraryIntFromInterval: getАrbitraryIntFromInterval,
   };
 })();
 

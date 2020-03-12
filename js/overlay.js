@@ -77,7 +77,6 @@
     }
   };
 
- 
   document.querySelector('.big-picture__cancel').addEventListener('click', function () {
     closeOverlayUnit('.big-picture');
     document.removeEventListener('keydown', onLargePictureOverlayEscButtonPress);

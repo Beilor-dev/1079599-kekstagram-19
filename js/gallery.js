@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  // var MIN_COMMENTS_AVATAR_COUNT = 1;
-  // var MIN_COMMENTS_AVATAR_COUNT = 6;
   var SHOW_GROUP_COMMENTS = 5;
   var pictureTemplate = document.querySelector('#picture')
     .content
@@ -80,8 +78,6 @@
     });
   };
 
-  // var debounceGalleryData = window.debounce(addGalleryData);
-
   var attachEventToImgSortingButton = function (data) {
     var onImgSortingClick = function (evt) {
       var target = evt.target;
@@ -94,10 +90,8 @@
         } else if (target.id === 'filter-discussed') {
           newData = window.sorting.onComments(data);
         }
-        // window.debounce(function () {
         removeAllElements(document.querySelectorAll('.container.pictures a.picture'));
         addGalleryData(newData);
-        // });
       }
     };
     document.querySelector('.img-filters__form').addEventListener('click', onImgSortingClick);

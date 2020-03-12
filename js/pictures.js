@@ -148,6 +148,7 @@
     document.querySelector('.scale__control--value').value = '100%';
     onFilterEffectChange();
     setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
+    window.validation.clearStringHashtagsComment();
     document.addEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
 
     document.querySelector('.img-upload__overlay').classList.remove('hidden');
@@ -155,10 +156,14 @@
 
   document.querySelector('.effects__list').addEventListener('change', onFilterEffectChange);
 
-  var onLoad = function () {
+  var closeImgUploadOverlay = function () {
     window.overlay.closeUnit('.img-upload__overlay');
     document.querySelector('#upload-file').value = '';
     document.removeEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
+  };
+
+  var onLoad = function () {
+    closeImgUploadOverlay();
     var successOverlayUnit = window.overlay.getSuccessUnit();
     document.querySelector('main').appendChild(successOverlayUnit);
   };
@@ -166,11 +171,7 @@
   var onError = function (text) {
     var errorOverlayUnit = window.overlay.getErrorUnit();
     errorOverlayUnit.querySelector('.error__title').innerText = text;
-
-    window.overlay.closeUnit('.img-upload__overlay');
-    document.querySelector('#upload-file').value = '';
-    document.removeEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
-
+    closeImgUploadOverlay();
     errorOverlayUnit.querySelectorAll('.error__button').forEach(function (elem) {
       elem.addEventListener('click', function () {
         window.overlay.deleteUnit('.error');

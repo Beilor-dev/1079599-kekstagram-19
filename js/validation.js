@@ -15,7 +15,7 @@
   var onHashTagCheck = function () {
     var tags = textHashtag.value;
     var toLowerCaseTags = tags.toLowerCase();
-    var transformedTags = toLowerCaseTags.split(' ')
+    var transformedTags = toLowerCaseTags.split(' ');
     validationHashtags(transformedTags);
   };
 
@@ -79,36 +79,40 @@
   };
 
   var validationHashtags = function (array) {
-  	var validationErrorMessage = '';
-  	if (checkNumberHashtags(array)) {
-  		validationErrorMessage = 'Нельзя указывать больше пяти хэш-тегов';
-  		setupRedBorder(textHashtag);
-  	} else if (checkRepeatHashtags(array)) {
-  		validationErrorMessage = 'Один и тот же хэш-тег не может быть использован дважды';
-  		setupRedBorder(textHashtag);
-  	} else if (checkOnlyGridInHashtags(array)) {
-  		validationErrorMessage = 'Хеш-тег не может состоять только из одной решётки';
-  		setupRedBorder(textHashtag);
-	} else if (checkContentHashtags(array)) {
-  		validationErrorMessage = 'Хэштэг должен содержать только буквы и числа';
-  		setupRedBorder(textHashtag);
-	} else if (checkLengthCharacter(array)) {
-  		validationErrorMessage = 'Максимальная длина одного хэш-тега 20 символов, включая решётку';
-  		setupRedBorder(textHashtag);
-  	} else if (checkGridInStartHashtags(array)) {
-  		validationErrorMessage = 'Хэш-тег начинается с символа # (решётка);';
-  		setupRedBorder(textHashtag);
-  	} else {
-  		clearCustomValidation(textHashtag);
-  	}
-  	textHashtag.setCustomValidity(validationErrorMessage);
+    var validationErrorMessage = '';
+    if (checkNumberHashtags(array)) {
+      validationErrorMessage = 'Нельзя указывать больше пяти хэш-тегов';
+      setupRedBorder(textHashtag);
+    } else if (checkRepeatHashtags(array)) {
+      validationErrorMessage = 'Один и тот же хэш-тег не может быть использован дважды';
+      setupRedBorder(textHashtag);
+    } else if (checkOnlyGridInHashtags(array)) {
+      validationErrorMessage = 'Хеш-тег не может состоять только из одной решётки';
+      setupRedBorder(textHashtag);
+    } else if (checkContentHashtags(array)) {
+      validationErrorMessage = 'Хэштэг должен содержать только буквы и числа';
+      setupRedBorder(textHashtag);
+    } else if (checkLengthCharacter(array)) {
+      validationErrorMessage = 'Максимальная длина одного хэш-тега 20 символов, включая решётку';
+      setupRedBorder(textHashtag);
+    } else if (checkGridInStartHashtags(array)) {
+      validationErrorMessage = 'Хэш-тег начинается с символа # (решётка);';
+      setupRedBorder(textHashtag);
+    } else {
+      clearCustomValidation(textHashtag);
+    }
+    textHashtag.setCustomValidity(validationErrorMessage);
   };
   textComment.addEventListener('input', onCommentInputLength);
 
   textHashtag.addEventListener('input', onHashTagCheck);
 
   var clearStringHashtagsComment = function () {
-  	textHashtag.value = '';
+    textHashtag.value = '';
     textComment.value = '';
+  };
+
+  window.validation = {
+    clearStringHashtagsComment: clearStringHashtagsComment
   };
 })();
