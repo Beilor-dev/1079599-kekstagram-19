@@ -82,7 +82,7 @@
   // Маштабирование
   var setupScaleEffectLevel = function (level) {
     document.querySelector('.scale__control--value').value = level + '%';
-    document.querySelector('.img-upload__preview img').style.transform = 'scale(' + level / 100 + ')';
+    document.querySelector('.img-upload__preview').style.transform = 'scale(' + level / 100 + ')';
   };
 
   var onScaleEffectLevel = function (evt) {
@@ -143,47 +143,9 @@
     document.addEventListener('mouseup', onEffectLevelTagMouseUp);
   });
 
-  // // Хэш-теги:
-  // var onHashTagCheck = function (evt) {
-  //   var target = evt.target;
-  //   var hashTags = target.value.split(' ');
-  //   target.setCustomValidity('');
-  //   if (hashTags.length > 5) {
-  //     target.setCustomValidity('Нельзя указывать больше пяти хэш-тегов;');
-  //   } else {
-  //     for (var a = 0; a < hashTags.length; a++) {
-  //       if (hashTags[a][0] !== '#') {
-  //         target.setCustomValidity('Хэш-тег должен начинаться с символа # (решётка);');
-  //         break;
-  //       } else if (hashTags[a].length < 2) {
-  //         target.setCustomValidity('Хэш-тег не может состоять только из одной решётки;');
-  //         break;
-  //       } else if (hashTags[a].length > 20) {
-  //         target.setCustomValidity('Максимальная длина хэш-тега 20 символов, включая решётку;');
-  //         break;
-  //       } else if (hashTags[a].match('#[a-zA-Zа-яА-Я0-9]*')[0] !== hashTags[a]) {
-  //         target.setCustomValidity('Хэштэг должен содержать только буквы и числа;');
-  //       } else {
-  //         for (var j = a + 1; j < hashTags.length; j++) {
-  //           if (hashTags[a].toLowerCase() === hashTags[j].toLowerCase()) {
-  //             target.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды, теги нечувствительны к регистру;');
-  //             break;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // };
-  // document.querySelector('.text__hashtags').setCustomValidity('');
-
   document.querySelector('#upload-file').addEventListener('change', function () {
-    // var hashTagField = document.querySelector('.text__hashtags');
-    // document.querySelector('.text__description').value = '';
     document.querySelector('.effects__radio').checked = true;
     document.querySelector('.scale__control--value').value = '100%';
-    // hashTagField.value = '';
-    // hashTagField.setCustomValidity('');
-    // hashTagField.addEventListener('input', onHashTagCheck);
     onFilterEffectChange();
     setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
     document.addEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
