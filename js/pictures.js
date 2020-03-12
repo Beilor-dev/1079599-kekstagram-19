@@ -148,7 +148,6 @@
     document.querySelector('.scale__control--value').value = '100%';
     onFilterEffectChange();
     setupScaleEffectLevel(SCALE_EFFECT_DEFAULT);
-    window.validation.clearStringHashtagsComment();
     document.addEventListener('keydown', window.overlay.onImgUploadEscButtonPress);
 
     document.querySelector('.img-upload__overlay').classList.remove('hidden');
