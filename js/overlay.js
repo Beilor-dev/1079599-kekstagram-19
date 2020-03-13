@@ -2,7 +2,6 @@
 
 (function () {
   var ESCAPE_KEYCODE = 27;
-  // Действия на странице
   var closeOverlayUnit = function (className) {
     document.querySelector(className).classList.add('hidden');
   };
@@ -78,7 +77,6 @@
     }
   };
 
-  // События
   document.querySelector('.big-picture__cancel').addEventListener('click', function () {
     closeOverlayUnit('.big-picture');
     document.removeEventListener('keydown', onLargePictureOverlayEscButtonPress);
@@ -92,13 +90,13 @@
   var onImgUploadOverlayTxtInputFocus = function () {
     document.removeEventListener('keydown', onImgUploadOverlayEscButtonPress);
   };
-  var onImgUploadOverlayTxtInputBlot = function () {
+  var onImgUploadOverlayTxtInputBlur = function () {
     document.addEventListener('keydown', onImgUploadOverlayEscButtonPress);
   };
   document.querySelector('.text__hashtags').addEventListener('focus', onImgUploadOverlayTxtInputFocus);
-  document.querySelector('.text__hashtags').addEventListener('blur', onImgUploadOverlayTxtInputBlot);
+  document.querySelector('.text__hashtags').addEventListener('blur', onImgUploadOverlayTxtInputBlur);
   document.querySelector('.text__description').addEventListener('focus', onImgUploadOverlayTxtInputFocus);
-  document.querySelector('.text__description').addEventListener('blur', onImgUploadOverlayTxtInputBlot);
+  document.querySelector('.text__description').addEventListener('blur', onImgUploadOverlayTxtInputBlur);
   window.overlay = {
     onLargePictureEscButtonPress: onLargePictureOverlayEscButtonPress,
     onImgUploadEscButtonPress: onImgUploadOverlayEscButtonPress,
