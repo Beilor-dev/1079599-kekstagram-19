@@ -5,7 +5,7 @@
     LINK_LOAD: 'https://js.dump.academy/kekstagram/data',
     LINK_SAVE: 'https://js.dump.academy/kekstagram',
     SUCCESS_CODE: 200,
-    TIMEOUT: 10000,
+    TIMEOUT_MS: 10000,
   };
 
   var getParamsXhr = function (onLoad, onError) {
@@ -27,7 +27,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = xhrParameters.TIMEOUT;
+    xhr.timeout = xhrParameters.TIMEOUT_MS;
 
     return xhr;
   };
