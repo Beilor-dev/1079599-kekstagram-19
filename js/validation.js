@@ -106,4 +106,13 @@
   textComment.addEventListener('input', onCommentInputLength);
 
   textHashtag.addEventListener('input', onHashTagCheck);
+
+  var clearStringHashtagsComment = function () {
+    textHashtag.value = '';
+    textComment.value = '';
+  };
+
+  window.validation = {
+    clearStringHashtagsComment: clearStringHashtagsComment
+  };
 })();
