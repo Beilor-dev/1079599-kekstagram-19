@@ -17,7 +17,7 @@
         standard = elements[i];
         for (var j = i + 1; j < elements.length; j++) {
           if (standard === elements[j]) {
-           matchingExist = true;
+            matchingExist = true;
           }
         }
       }
@@ -32,7 +32,7 @@
   textComment.addEventListener('input', function (evt) {
     var commentsArray = evt.target.value.toLowerCase().split(' ');
 
-    commentsArray.forEach(function (item) {
+    commentsArray.forEach(function () {
       if (textComment.value.length > COMMENTS_MAXIMUM_LENGTH) {
         evt.target.setCustomValidity('Длина комментария не может составлять больше 140 символов');
         setupRedBorder(evt);
