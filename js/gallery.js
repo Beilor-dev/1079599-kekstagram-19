@@ -104,7 +104,7 @@
   };
   var onError = function (text) {
     var errorOverlayUnit = window.overlay.getErrorUnit();
-    errorOverlayUnit.querySelector('.error__title').innerText = text;
+    errorOverlayUnit.querySelector('.error__title').textContent = text;
     errorOverlayUnit.querySelector('.error__button').addEventListener('click', function () {
       window.overlay.deleteUnit('.error');
       window.backend.load(onLoad, onError);

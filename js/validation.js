@@ -1,111 +1,88 @@
 'use strict';
 
 (function () {
-  var textComment = document.querySelector('.text__description');
-  var onCommentInputLength = function () {
-    if (textComment.value.length > 140) {
-      textComment.setCustomValidity('Длина комментария не может составлять больше 140 символов');
-      setupRedBorder(textComment);
-    } else {
-      clearCustomValidation(textComment);
-    }
-  };
 
+  var COMMENTS_MAXIMUM_LENGTH = 140;
+  var HASHTAGS_MINIMUM_SYMBOLS_NUMBER = 2;
+  var HASHTAGS_MINIMUM_NUMBER = 5;
+  var HASHTAGS_MAXIMUM_NUMBER = 20;
   var textHashtag = document.querySelector('.text__hashtags');
-  var onHashTagCheck = function () {
-    var tags = textHashtag.value;
-    var toLowerCaseTags = tags.toLowerCase();
-    var transformedTags = toLowerCaseTags.split(' ');
-    validationHashtags(transformedTags);
-  };
+  var textComment = document.querySelector('.text__description');
 
-  var setupRedBorder = function (object) {
-    object.style.borderColor = 'red';
-  };
-
-  var clearCustomValidation = function (message) {
-    message.setCustomValidity('');
-    message.style.borderColor = '';
-  };
-
-  var checkFirstCharacter = function (tag) {
-    return tag.charAt(0);
-  };
-
-  var checkNumberHashtags = function (array) {
-    return array.length > 5;
-  };
-
-  var checkGridInStartHashtags = function (array) {
-    var check = function (tag) {
-      return checkFirstCharacter(tag) !== '#' && tag !== '';
-    };
-    return array.some(check);
-  };
-
-  var checkOnlyGridInHashtags = function (array) {
-    var check = function (tag) {
-      return tag === '#' && tag.length === 1;
-    };
-    return array.some(check);
-  };
-
-  var checkRepeatHashtag = function (tags) {
-    tags = tags.filter(function (elem, pos, arr) {
-      return (
-        pos !== arr.indexOf(elem) || pos !== arr.lastIndexOf(elem)
-      );
-    });
-    return tags;
-  };
-
-  var checkRepeatHashtags = function (array) {
-    return checkRepeatHashtag(array).length !== 0;
-  };
-
-
-  var checkLengthCharacter = function (array) {
-    var check = function (tag) {
-      return tag.length > 20;
-    };
-    return array.some(check);
-  };
-
-  var checkContentHashtags = function (array) {
-    var check = function (tag) {
-      return !tag.match(/^#[0-9a-zа-я]+$/) && tag[0] === '#';
-    };
-    return array.some(check);
-  };
-
-  var validationHashtags = function (array) {
-    var validationErrorMessage = '';
-    if (checkNumberHashtags(array)) {
-      validationErrorMessage = 'Нельзя указывать больше пяти хэш-тегов';
-      setupRedBorder(textHashtag);
-    } else if (checkRepeatHashtags(array)) {
-      validationErrorMessage = 'Один и тот же хэш-тег не может быть использован дважды';
-      setupRedBorder(textHashtag);
-    } else if (checkOnlyGridInHashtags(array)) {
-      validationErrorMessage = 'Хеш-тег не может состоять только из одной решётки';
-      setupRedBorder(textHashtag);
-    } else if (checkContentHashtags(array)) {
-      validationErrorMessage = 'Хэштэг должен содержать только буквы и числа';
-      setupRedBorder(textHashtag);
-    } else if (checkLengthCharacter(array)) {
-      validationErrorMessage = 'Максимальная длина одного хэш-тега 20 символов, включая решётку';
-      setupRedBorder(textHashtag);
-    } else if (checkGridInStartHashtags(array)) {
-      validationErrorMessage = 'Хэш-тег начинается с символа # (решётка);';
-      setupRedBorder(textHashtag);
-    } else {
-      clearCustomValidation(textHashtag);
+  var findDuplicateElements = function (elements) {
+    var duplicatesExist = false;
+    var etalon = '';
+    if (elements.length > 1) {
+      for (var i = 0; i < elements.length; i++) {
+        etalon = elements[i];
+        for (var j = i + 1; j < elements.length; j++) {
+          if (etalon === elements[j]) {
+            duplicatesExist = true;
+          }
+        }
+      }
     }
-    textHashtag.setCustomValidity(validationErrorMessage);
+    return duplicatesExist;
   };
-  textComment.addEventListener('input', onCommentInputLength);
 
-  textHashtag.addEventListener('input', onHashTagCheck);
+  var setupRedBorder = function (evt) {
+    evt.target.style.borderColor = 'red';
+  };
+
+  textComment.addEventListener('input', function (evt) {
+    var commentsArray = evt.target.value.toLowerCase().split(' ');
+
+    commentsArray.forEach(function (item) {
+      var comment = item;
+      if (textComment.value.length > COMMENTS_MAXIMUM_LENGTH) {
+      textComment.setCustomValidity('Длина комментария не может составлять больше 140 символов');
+      setupRedBorder(evt);
+      return;
+    }
+      evt.target.setCustomValidity('');
+      evt.target.style.border = '';
+    });
+  });
+  
+  textHashtag.addEventListener('input', function (evt) {
+    var hashtagsArray = evt.target.value.toLowerCase().split(' ');
+
+    hashtagsArray.forEach(function (item) {
+      var hashtag = item;
+      if (hashtag === '#') {
+        evt.target.setCustomValidity('Хэш-тег начинается с символа # (решётка)');
+        setupRedBorder(evt);
+        return;
+      }
+      if (!hashtag.match(/^([#])([0-9a-zA-Zа-яёА-ЯЁ]{1,19})$/g)) {
+        evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
+        setupRedBorder(evt);
+        return;
+      }
+      if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
+        evt.target.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
+        setupRedBorder(evt);
+        return;
+      }
+      if (hashtag.length > HASHTAGS_MAXIMUM_NUMBER) {
+        evt.target.setCustomValidity('Хэш-тег не должен быть длинее 20 символов');
+        setupRedBorder(evt);
+        return;
+      }
+      if (findDuplicateElements(hashtagsArray)) {
+        evt.target.setCustomValidity('Один хештег не может быть использован дважды');
+        setupRedBorder(evt);
+        return;
+      }
+      if (hashtagsArray.length > HASHTAGS_MINIMUM_NUMBER) {
+        evt.target.setCustomValidity('Нельзя указывать больше пяти хэш-тегов!');
+        setupRedBorder(evt);
+        return;
+      }
+      evt.target.setCustomValidity('');
+      evt.target.style.border = '';
+    });
+  });
 
   var clearStringHashtagsComment = function () {
     textHashtag.value = '';

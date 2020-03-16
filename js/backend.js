@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var xhrParameters = {
+  var XHR_PARAMETERS = {
     LINK_LOAD: 'https://js.dump.academy/kekstagram/data',
     LINK_SAVE: 'https://js.dump.academy/kekstagram',
     SUCCESS_CODE: 200,
@@ -12,7 +12,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      if (xhr.status === xhrParameters.SUCCESS_CODE) {
+      if (xhr.status === XHR_PARAMETERS.SUCCESS_CODE) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа:' + xhr.status + xhr.statusText);
@@ -27,7 +27,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = xhrParameters.TIMEOUT_MS;
+    xhr.timeout = XHR_PARAMETERS.TIMEOUT_MS;
 
     return xhr;
   };
@@ -35,12 +35,12 @@
   window.backend = {
     load: function (onLoad, onError) {
       var xhr = getParamsXhr(onLoad, onError);
-      xhr.open('GET', xhrParameters.LINK_LOAD);
+      xhr.open('GET', XHR_PARAMETERS.LINK_LOAD);
       xhr.send();
     },
     save: function (data, onLoad, onError) {
       var xhr = getParamsXhr(onLoad, onError);
-      xhr.open('POST', xhrParameters.LINK_SAVE);
+      xhr.open('POST', XHR_PARAMETERS.LINK_SAVE);
       xhr.send(data);
     }
   };

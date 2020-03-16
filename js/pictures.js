@@ -170,7 +170,7 @@
 
   var onError = function (text) {
     var errorOverlayUnit = window.overlay.getErrorUnit();
-    errorOverlayUnit.querySelector('.error__title').innerText = text;
+    errorOverlayUnit.querySelector('.error__title').textContent = text;
     closeImgUploadOverlay();
     errorOverlayUnit.querySelectorAll('.error__button').forEach(function (elem) {
       elem.addEventListener('click', function () {
