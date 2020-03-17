@@ -43,7 +43,7 @@
     });
   });
   textHashtag.addEventListener('input', function (evt) {
-    var hashtagsArray = evt.target.value.trim().replace(/\s + /g,' ').toLowerCase().split(' ');
+    var hashtagsArray = evt.target.value.trim().replace(/\s+/g,' ').toLowerCase().split(' ');
 
     hashtagsArray.forEach(function (item) {
       var hashtag = item;
