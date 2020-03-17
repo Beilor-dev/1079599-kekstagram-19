@@ -43,16 +43,16 @@
     });
   });
   textHashtag.addEventListener('input', function (evt) {
-    var hashtagsArray = evt.target.value.toLowerCase().split(' ');
+    var hashtagsArray = evt.target.value.trim().replace(/\s + /g,' ').toLowerCase().split(' ');
 
     hashtagsArray.forEach(function (item) {
       var hashtag = item;
-      if (hashtag === '#') {
+      if (!hashtag.startsWith('#')) {
         evt.target.setCustomValidity('Хэш-тег начинается с символа # (решётка)');
         setupRedBorder(evt);
         return;
       }
-      if (!hashtag.match(/^([#])([0-9a-zA-Zа-яёА-ЯЁ]{1,19})$/g)) {
+      if (!hashtag.match(/^#[0-9a-zа-я]+$/)) {
         evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
         setupRedBorder(evt);
         return;
