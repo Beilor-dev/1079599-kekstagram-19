@@ -52,13 +52,18 @@
         setupRedBorder(evt);
         return;
       }
-      if (!hashtag.match(/^#[0-9a-zа-я]+$/)) {
-        evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
+      // if (!hashtag.match(/^([#])([0-9a-zA-Zа-яёА-ЯЁ]{1,19})$/g)) {
+      //   evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
+      //   setupRedBorder(evt);
+      //   return;
+      // }
+      if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
+        evt.target.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
         setupRedBorder(evt);
         return;
       }
-      if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
-        evt.target.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
+      if (!hashtag.match(/^([#])([0-9a-zA-Zа-яёА-ЯЁ]{1,19})$/g)) {
+        evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
         setupRedBorder(evt);
         return;
       }
