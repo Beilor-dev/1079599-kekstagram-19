@@ -3,7 +3,6 @@
 (function () {
 
   var COMMENTS_MAXIMUM_LENGTH = 140;
-  var HASHTAGS_MINIMUM_SYMBOLS_NUMBER = 2;
   var HASHTAGS_MINIMUM_NUMBER = 5;
   var HASHTAGS_MAXIMUM_NUMBER = 20;
   var textHashtag = document.querySelector('.text__hashtags');
@@ -43,7 +42,7 @@
     });
   });
   textHashtag.addEventListener('input', function (evt) {
-    var hashtagsArray = evt.target.value.trim().replace(/\s+/g,' ').toLowerCase().split(' ');
+    var hashtagsArray = evt.target.value.trim().replace(/\s+/g, ' ').toLowerCase().split(' ');
 
     hashtagsArray.forEach(function (item) {
       var hashtag = item;
@@ -54,11 +53,6 @@
       }
       if (!hashtag.match(/^#[0-9a-zа-я]+$/)) {
         evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
-        setupRedBorder(evt);
-        return;
-      }
-      if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
-        evt.target.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
         setupRedBorder(evt);
         return;
       }
