@@ -4,8 +4,8 @@
 
   var COMMENTS_MAXIMUM_LENGTH = 140;
   var HASHTAGS_MINIMUM_SYMBOLS_NUMBER = 2;
-  var HASHTAGS_MINIMUM_NUMBER = 5;
-  var HASHTAGS_MAXIMUM_NUMBER = 20;
+  var HASHTAGS_MAXIMUM_NUMBER = 5;
+  var HASHTAGS_MAXIMUM_SYMBOLS = 20;
   var textHashtag = document.querySelector('.text__hashtags');
   var textComment = document.querySelector('.text__description');
 
@@ -43,6 +43,8 @@
     });
   });
   textHashtag.addEventListener('input', function (evt) {
+    evt.target.setCustomValidity('');
+    evt.target.style.border = '';
     var hashtagsArray = evt.target.value.trim().replace(/\s+/g, ' ').toLowerCase().split(' ');
 
     hashtagsArray.forEach(function (item) {
@@ -52,38 +54,31 @@
         setupRedBorder(evt);
         return;
       }
-      // if (!hashtag.match(/^([#])([0-9a-zA-Zа-яёА-ЯЁ]{1,19})$/g)) {
-      //   evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
-      //   setupRedBorder(evt);
-      //   return;
-      // }
-      if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
+        if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
         evt.target.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
         setupRedBorder(evt);
         return;
-      }
-      if (!hashtag.match(/^([#])([0-9a-zA-Zа-яёА-ЯЁ]{1,19})$/g)) {
+      } 
+      if (!hashtag.match(/^#[0-9a-zа-я]+$/)) {
         evt.target.setCustomValidity('Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т.п.), символы пунктуации (тире, дефис, запятая и т.п.), эмодзи и т.д.');
         setupRedBorder(evt);
         return;
       }
-      if (hashtag.length > HASHTAGS_MAXIMUM_NUMBER) {
+      if (hashtag.length > HASHTAGS_MAXIMUM_SYMBOLS) {
         evt.target.setCustomValidity('Хэш-тег не должен быть длинее 20 символов');
         setupRedBorder(evt);
         return;
       }
+      if (hashtagsArray.length > HASHTAGS_MAXIMUM_NUMBER) {
+        evt.target.setCustomValidity('Нельзя указывать больше пяти хэш-тегов!');
+        setupRedBorder(evt);
+        return;
+      }  
       if (findMatchingElements(hashtagsArray)) {
         evt.target.setCustomValidity('Один хештег не может быть использован дважды');
         setupRedBorder(evt);
         return;
-      }
-      if (hashtagsArray.length > HASHTAGS_MINIMUM_NUMBER) {
-        evt.target.setCustomValidity('Нельзя указывать больше пяти хэш-тегов!');
-        setupRedBorder(evt);
-        return;
-      }
-      evt.target.setCustomValidity('');
-      evt.target.style.border = '';
+      }        
     });
   });
 
