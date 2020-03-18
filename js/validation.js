@@ -54,7 +54,7 @@
         setupRedBorder(evt);
         return;
       }
-        if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
+      if (hashtag.length < HASHTAGS_MINIMUM_SYMBOLS_NUMBER) {
         evt.target.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
         setupRedBorder(evt);
         return;
